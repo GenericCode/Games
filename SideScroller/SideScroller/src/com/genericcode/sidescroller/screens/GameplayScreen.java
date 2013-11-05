@@ -2,7 +2,7 @@ package com.genericcode.sidescroller.screens;
 
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.genericcode.sidescroller.entities.BikeWorld;
+import com.genericcode.sidescroller.entities.ScrollWorld;
 import com.lostcode.javalib.Game;
 import com.lostcode.javalib.entities.EntityWorld;
 import com.lostcode.javalib.states.InputScreen;
@@ -27,7 +27,7 @@ public class GameplayScreen extends InputScreen {
 		
 		camera = new OrthographicCamera(Display.getPreferredWidth(), Display.getPreferredHeight());
 		
-		world = new BikeWorld(game.getInput(), camera);
+		world = new ScrollWorld(game.getInput(), camera);
 	}
 
 	private void onPaused() {

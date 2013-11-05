@@ -8,7 +8,7 @@ import com.lostcode.javalib.states.screens.SplashScreen;
 import com.lostcode.javalib.utils.Convert;
 import com.lostcode.javalib.utils.SoundManager;
 
-public class PsychBike extends Game {
+public class SideScroller extends Game {
 	
 	@Override
 	public void create() {

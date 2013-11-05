@@ -24,7 +24,7 @@ public class MainMenuScreen extends MenuScreen {
 	 * @param textureHandle A FileHandle pointing to the background texture.
 	 */
 	public MainMenuScreen(Game game) {
-		super(game, Gdx.files.internal("data/Skin/uiskin.json"), "Micro Space", null);
+		super(game, Gdx.files.internal("data/Skin/uiskin.json"), "Side Scroller", null);
 	}
 
 	@Override

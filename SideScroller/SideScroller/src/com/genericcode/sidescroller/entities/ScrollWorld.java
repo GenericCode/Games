@@ -8,10 +8,11 @@ import com.badlogic.gdx.math.Vector2;
 import com.lostcode.javalib.entities.EntityWorld;
 import com.lostcode.javalib.entities.systems.generic.TrackingCameraSystem;
 import com.lostcode.javalib.utils.Convert;
+import com.genericcode.sidescroller.entities.systems.PlayerControlSystem;
 
-public class BikeWorld extends EntityWorld {
+public class ScrollWorld extends EntityWorld {
 	
-	public BikeWorld(InputMultiplexer input, Camera camera) {
+	public ScrollWorld(InputMultiplexer input, Camera camera) {
 		super(input, camera, new Vector2(0, 9.8f));
 		
 	}
@@ -39,6 +40,8 @@ public class BikeWorld extends EntityWorld {
 		super.buildSystems();
 		
 		//Input
+		systems.addSystem(new PlayerControlSystem(input));
+		//Render
 		systems.addSystem(new TrackingCameraSystem("Player", camera, getBounds()));
 
 	}
