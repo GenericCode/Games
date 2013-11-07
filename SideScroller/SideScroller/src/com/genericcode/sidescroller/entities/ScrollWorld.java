@@ -9,12 +9,15 @@ import com.lostcode.javalib.entities.EntityWorld;
 import com.lostcode.javalib.entities.systems.generic.TrackingCameraSystem;
 import com.lostcode.javalib.utils.Convert;
 import com.genericcode.sidescroller.entities.systems.PlayerControlSystem;
+import com.genericcode.sidescroller.entities.templates.PlayerTemplate;
 
 public class ScrollWorld extends EntityWorld {
 	
 	public ScrollWorld(InputMultiplexer input, Camera camera) {
-		super(input, camera, new Vector2(0, 9.8f));
+		super(input, camera, new Vector2(0, -9.8f));
 		
+		debugView.enabled = true;
+		debugView.visible = true;//TODO DELETE
 	}
 
 	@Override
@@ -50,12 +53,16 @@ public class ScrollWorld extends EntityWorld {
 	protected void buildTemplates() {
 		super.buildTemplates();
 		
+		addTemplate("Player", new PlayerTemplate());
+		
 
 	}
 
 	@Override
 	protected void buildEntities() {
 		super.buildEntities();
+		
+		createEntity("Player", "Generic");
 	}
 
 	@Override
