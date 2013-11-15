@@ -10,6 +10,7 @@ import com.lostcode.javalib.entities.systems.generic.TrackingCameraSystem;
 import com.lostcode.javalib.utils.Convert;
 import com.genericcode.sidescroller.entities.systems.PlayerControlSystem;
 import com.genericcode.sidescroller.entities.templates.PlayerTemplate;
+import com.genericcode.sidescroller.entities.templates.projectiles.BulletTemplate;
 
 public class ScrollWorld extends EntityWorld {
 	
@@ -54,6 +55,7 @@ public class ScrollWorld extends EntityWorld {
 		super.buildTemplates();
 		
 		addTemplate("Player", new PlayerTemplate());
+		addTemplate("Bullet", new BulletTemplate());
 		
 
 	}

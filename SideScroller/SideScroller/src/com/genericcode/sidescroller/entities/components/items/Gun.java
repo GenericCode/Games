@@ -1,4 +1,4 @@
-package com.genericcode.sidescroller.entities.components;
+package com.genericcode.sidescroller.entities.components.items;
 
 import com.lostcode.javalib.entities.Entity;
 import com.lostcode.javalib.entities.EntityWorld;
@@ -15,12 +15,10 @@ import com.lostcode.javalib.entities.components.render.Sprite;
 
 public class Gun extends Item {
 
-	private Entity owner;
-	private EntityWorld world;
-	
 	protected Stat damage;
 	protected Cooldown fireDelay;
 	protected Stat range;
+	protected Stat bulletVelocity;
 	
 	protected Stat ammo;
 	protected Cooldown reloadTime;
@@ -40,25 +38,35 @@ public class Gun extends Item {
 	 *            A {@link Cooldown} representing the delay between shots fired by the gun.
 	 * @param range
 	 *            A {@link Stat} representing the range of projectiles fired by the gun.
+	 * @param bulletVelocity
+	 *            A {@link Stat} representing the initial velocity of projectiles fired by the gun.           
 	 * @param ammo
 	 *            A {@link Stat} representing the current and maximum values of ammo for the gun.
 	 * @param reloadTime
 	 *            A {@link Cooldown} representing the delay between reloads of the gun.
 	 *            
 	 */
-	public Gun(String type, Entity owner, EntityWorld world, Stat damage, Cooldown fireDelay, Stat range, Stat ammo, Cooldown reloadTime) {
+	public Gun(String type, Stat damage, Cooldown fireDelay, Stat range, Stat bulletVelocity, Stat ammo, Cooldown reloadTime) {
 		super(type);
-		
-		this.owner = owner;
-		this.world = world;
 		
 		this.damage = damage;
 		this.fireDelay = fireDelay;
 		this.range = range;
+		this.bulletVelocity = bulletVelocity;
 		
 		this.ammo = ammo;
 		this.reloadTime = reloadTime;
 	}
 	
-	public void shoot() {}
+	/**
+	 * Constructs a Gun component.
+	 * 
+	 * @param firer
+	 *            The {@link Entity} firing the gun.
+	 * @param world
+	 *            The {@link EntityWorld} containing the firer.
+	 * @param fireAngle
+	 *            The angle the bullet should fire at in degrees, from 0.        
+	 */
+	public void shoot( Entity firer, EntityWorld world, float fireAngle ) {}
 }
