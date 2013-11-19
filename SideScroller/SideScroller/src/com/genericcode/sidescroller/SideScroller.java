@@ -14,7 +14,7 @@ public class SideScroller extends Game {
 	public void create() {
 		Convert.init(1f);
 		
-		title = "PsychBike";
+		title = "SideScroller";
 		
 		landscapeMode = true;
 		

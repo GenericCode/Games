@@ -11,6 +11,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Touchpad;
 import com.badlogic.gdx.scenes.scene2d.ui.Touchpad.TouchpadStyle;
 import com.lostcode.javalib.entities.Entity;
+import com.lostcode.javalib.entities.components.generic.Inventory;
 import com.lostcode.javalib.entities.components.physical.Body;
 import com.lostcode.javalib.entities.systems.InputSystem;
 import com.lostcode.javalib.utils.Convert;
@@ -70,9 +71,10 @@ public class PlayerControlSystem extends InputSystem {
 	@Override
 	protected void process(Entity e) {
 		super.process(e);
-
 		Body b = (Body) e.getComponent(Body.class);
-
+		Inventory inv = (Inventory) e.getComponent(Inventory.class);
+		if( inv.getSelected().use("primary", e, world, new Vector2(0,0) ) )
+			System.exit(0);
 		Vector2 velocity = new Vector2();
 
 		if (Gdx.app.getType() == ApplicationType.Android) {
@@ -159,8 +161,8 @@ public class PlayerControlSystem extends InputSystem {
 						fireL.nor();
 						fireL.scl(BULLET_SPEED);
 
-						world.createEntity("Bullet", "red", b.getPosition(),
-								fireL, e, BULLET_DAMAGE);
+						/*world.createEntity("Bullet", "red", b.getPosition(),
+								fireL, e, BULLET_DAMAGE);*/
 						elapsedShot = 0f;
 						SoundManager.playSound("shot", 0.5f);
 					}
