@@ -18,12 +18,12 @@ import com.lostcode.javalib.entities.components.render.Sprite;
 public class Gun extends Item {
 
 	protected float damage;
-	protected Cooldown fireDelay;
+	protected float fireDelay;
 	protected float range;
 	protected float bulletVelocity;
 	
 	protected Stat ammo;
-	protected Cooldown reloadTime;
+	protected float reloadTime;
 	
 	protected boolean ultra = false;
 	
@@ -48,7 +48,7 @@ public class Gun extends Item {
 	 *            A {@link Cooldown} representing the delay between reloads of the gun.
 	 *            
 	 */
-	public Gun(String type, float damage, Cooldown fireDelay, float range, float bulletVelocity, GenericStat ammo, Cooldown reloadTime) {
+	public Gun(String type, float damage, float fireDelay, float range, float bulletVelocity, GenericStat ammo, float reloadTime) {
 		super(type);
 		
 		this.damage = damage;
@@ -98,8 +98,8 @@ public class Gun extends Item {
 	 *            The new fire delay of the gun.     
 	 */
 	public void setFireDelay(float delay) {
-		this.fireDelay.setMaxValue(delay);
-		this.fireDelay.setCurrentValue(delay);
+		this.fireDelay = delay;
+		this.useTime = delay;
 	}
 	
 	/**
@@ -140,7 +140,6 @@ public class Gun extends Item {
 	 *            The new reload time of the gun.     
 	 */
 	public void setReloadTime(float time) {
-		this.reloadTime.setMaxValue(time);
-		this.reloadTime.setCurrentValue(time);
+		this.reloadTime = time;
 	}
 }

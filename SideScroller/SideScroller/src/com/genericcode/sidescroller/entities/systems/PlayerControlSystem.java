@@ -11,6 +11,8 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Touchpad;
 import com.badlogic.gdx.scenes.scene2d.ui.Touchpad.TouchpadStyle;
 import com.lostcode.javalib.entities.Entity;
+import com.lostcode.javalib.entities.components.abstracted.Stat;
+import com.lostcode.javalib.entities.components.generic.Cooldown;
 import com.lostcode.javalib.entities.components.generic.Inventory;
 import com.lostcode.javalib.entities.components.physical.Body;
 import com.lostcode.javalib.entities.systems.InputSystem;
@@ -73,8 +75,13 @@ public class PlayerControlSystem extends InputSystem {
 		super.process(e);
 		Body b = (Body) e.getComponent(Body.class);
 		Inventory inv = (Inventory) e.getComponent(Inventory.class);
-		if( inv.getSelected().use("primary", e, world, new Vector2(0,0) ) )
-			System.exit(0);
+		Cooldown cd = (Cooldown) e.getComponent(Cooldown.class);
+		if( cd.isFinished() ){
+			inv.getSelected().use("primary", e, world, new Vector2(1,0) );
+			cd.setMaxValue( inv.getSelected().getUseTime() );
+			cd.fillMax();
+		}
+		cd.drain(1);
 		Vector2 velocity = new Vector2();
 
 		if (Gdx.app.getType() == ApplicationType.Android) {

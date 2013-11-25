@@ -63,10 +63,15 @@ public class PlayerTemplate implements EntityTemplate {
 		
 		e.addComponent(h);
 		
+		Cooldown cd = new Cooldown(world,0);
+		
+		e.addComponent(cd);
+		
 		Array<Item> contents = new Array<Item>();
-		contents.add(new SniperGun(10, new Cooldown(world, 10), 100, 10, new GenericStat(10), new Cooldown(world, 10)));
+		SniperGun sg = new SniperGun(10, 10, 100, 10, new GenericStat(200000000f), 10);
+		contents.add(sg);
 		Inventory inv = new Inventory(e, world, 6, contents);
-		//inv.select(inv.getItems().);FIX ALL THIS
+		inv.select(sg);//FIX ALL THIS
 		
 		e.addComponent(inv);
 		

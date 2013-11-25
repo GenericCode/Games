@@ -11,6 +11,7 @@ import com.lostcode.javalib.entities.components.generic.Bullet;
 import com.lostcode.javalib.entities.components.generic.Health;
 import com.lostcode.javalib.entities.components.physical.Collidable;
 import com.lostcode.javalib.entities.components.physical.Particle;
+import com.lostcode.javalib.entities.components.render.Sprite;
 import com.lostcode.javalib.entities.templates.EntityTemplate;
 import com.lostcode.javalib.utils.LogManager;
 
@@ -117,6 +118,9 @@ public class BulletTemplate implements EntityTemplate {
 						return 0;
 				}
 			});
+		
+		e.addComponent(new Sprite(bulletTex, bulletRect[0]));
+		
 		return e;
 	}
 

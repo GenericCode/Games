@@ -47,6 +47,7 @@ public class ScrollWorld extends EntityWorld {
 		systems.addSystem(new PlayerControlSystem(input));
 		//Render
 		systems.addSystem(new TrackingCameraSystem("Player", camera, getBounds()));
+		//systems.addSystem(new RenderSY)
 
 	}
 
