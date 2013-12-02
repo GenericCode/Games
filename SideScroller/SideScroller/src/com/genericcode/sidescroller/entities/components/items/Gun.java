@@ -5,7 +5,6 @@ import com.genericcode.sidescroller.entities.components.GenericStat;
 import com.lostcode.javalib.entities.Entity;
 import com.lostcode.javalib.entities.EntityWorld;
 import com.lostcode.javalib.entities.components.abstracted.Stat;
-import com.lostcode.javalib.entities.components.generic.Cooldown;
 import com.lostcode.javalib.entities.components.generic.Item;
 import com.lostcode.javalib.entities.components.render.Sprite;
 
@@ -37,7 +36,7 @@ public class Gun extends Item {
 	 * @param damage
 	 *            A float representing the damage of projectiles fired by the gun.
 	 * @param fireDelay
-	 *            A {@link Cooldown} representing the delay between shots fired by the gun.
+	 *            A float representing the delay between shots fired by the gun.
 	 * @param range
 	 *            A float representing the range of projectiles fired by the gun.
 	 * @param bulletVelocity
@@ -45,7 +44,7 @@ public class Gun extends Item {
 	 * @param ammo
 	 *            A {@link GenericStat} representing the current and maximum values of ammo for the gun.
 	 * @param reloadTime
-	 *            A {@link Cooldown} representing the delay between reloads of the gun.
+	 *            A float representing the delay between reloads of the gun.
 	 *            
 	 */
 	public Gun(String type, float damage, float fireDelay, float range, float bulletVelocity, GenericStat ammo, float reloadTime) {
@@ -53,6 +52,7 @@ public class Gun extends Item {
 		
 		this.damage = damage;
 		this.fireDelay = fireDelay;
+		this.useTime = fireDelay;
 		this.range = range;
 		this.bulletVelocity = bulletVelocity;
 		

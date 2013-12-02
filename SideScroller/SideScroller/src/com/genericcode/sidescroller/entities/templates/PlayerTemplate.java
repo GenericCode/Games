@@ -8,6 +8,7 @@ import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
 import com.badlogic.gdx.utils.Array;
 import com.genericcode.sidescroller.entities.components.GenericHealth;
 import com.genericcode.sidescroller.entities.components.GenericStat;
+import com.genericcode.sidescroller.entities.components.items.ShotgunGun;
 import com.genericcode.sidescroller.entities.components.items.SniperGun;
 import com.lostcode.javalib.entities.Entity;
 import com.lostcode.javalib.entities.EntityWorld;
@@ -68,10 +69,12 @@ public class PlayerTemplate implements EntityTemplate {
 		e.addComponent(cd);
 		
 		Array<Item> contents = new Array<Item>();
-		SniperGun sg = new SniperGun(10, 10, 100, 10, new GenericStat(200000000f), 10);
+		SniperGun sg = new SniperGun(10, 1, 500, 220, new GenericStat(200000000f), 10);
+		ShotgunGun sgg = new ShotgunGun(10, 1, 75, 220, new GenericStat(200000000f), 10, 5);
 		contents.add(sg);
+		contents.add(sgg);
 		Inventory inv = new Inventory(e, world, 6, contents);
-		inv.select(sg);//FIX ALL THIS
+		//inv.select(sf);//FIX ALL THIS
 		
 		e.addComponent(inv);
 		

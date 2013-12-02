@@ -11,7 +11,6 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Touchpad;
 import com.badlogic.gdx.scenes.scene2d.ui.Touchpad.TouchpadStyle;
 import com.lostcode.javalib.entities.Entity;
-import com.lostcode.javalib.entities.components.abstracted.Stat;
 import com.lostcode.javalib.entities.components.generic.Cooldown;
 import com.lostcode.javalib.entities.components.generic.Inventory;
 import com.lostcode.javalib.entities.components.physical.Body;
@@ -22,17 +21,19 @@ import com.lostcode.javalib.utils.SoundManager;
 
 public class PlayerControlSystem extends InputSystem {
 
-	private static final float SHOT_DELAY = 0.25f;
 	private static final float PLAYER_SPEED = Convert.pixelsToMeters(140f);
-	private static final float BULLET_SPEED = Convert.pixelsToMeters(250f);
-	private static final float BULLET_DAMAGE = 1f;
 
 	private boolean movingLeft = false;
 	private boolean movingRight = false;
 	private boolean movingUp = false;
 	private boolean movingDown = false;
+	
+	private boolean select0 = false;
+	private boolean select1 = false;
+	private boolean select2 = false;
+	private boolean select3 = false;
+	private boolean select4 = false;
 
-	private float elapsedShot = 0f;
 	private Vector2 aim;
 
 	private Stage stage;
@@ -45,24 +46,6 @@ public class PlayerControlSystem extends InputSystem {
 
 		stage = new Stage(Display.getPreferredWidth(),
 				Display.getPreferredHeight(), false);
-		if (Gdx.app.getType() == ApplicationType.Android) {
-			Skin touchpadSkin = new Skin();
-			touchpadSkin.add("back", new Texture("data/Textures/padBack.png"));
-			touchpadSkin
-					.add("front", new Texture("data/Textures/padFront.png"));
-
-			TouchpadStyle style = new TouchpadStyle();
-			style.background = touchpadSkin.getDrawable("back");
-			style.knob = touchpadSkin.getDrawable("front");
-
-			movepad = new Touchpad(10, style);
-			aimpad = new Touchpad(10, style);
-			aimpad.setPosition(Display.getPreferredWidth() - aimpad.getWidth(),
-					0);
-
-			stage.addActor(movepad);
-			stage.addActor(aimpad);
-		}
 	}
 
 	@Override
@@ -76,107 +59,71 @@ public class PlayerControlSystem extends InputSystem {
 		Body b = (Body) e.getComponent(Body.class);
 		Inventory inv = (Inventory) e.getComponent(Inventory.class);
 		Cooldown cd = (Cooldown) e.getComponent(Cooldown.class);
-		if( cd.isFinished() ){
-			inv.getSelected().use("primary", e, world, new Vector2(1,0) );
-			cd.setMaxValue( inv.getSelected().getUseTime() );
-			cd.fillMax();
-		}
-		cd.drain(1);
+		cd.drain(deltaSeconds());
 		Vector2 velocity = new Vector2();
 
-		if (Gdx.app.getType() == ApplicationType.Android) {
-			stage.act(deltaSeconds());
-			stage.draw();
-
-			float x = movepad.getKnobPercentX();
-			float y = movepad.getKnobPercentY();
-			velocity.set(x, y);
-			velocity.scl(PLAYER_SPEED);
-
-			b.setLinearVelocity(velocity);
-		} else {
-			if (movingLeft) {
-				velocity.x = -1f;
-			} else if (movingRight) {
-				velocity.x = 1f;
-			}
-
-			if (movingUp) {
-				velocity.y = 1f;
-			} else if (movingDown) {
-				velocity.y = -1f;
-			}
-
-			velocity.nor();
-			velocity.scl(PLAYER_SPEED);
+		if (movingLeft) {
+			velocity.x = -1f;
+		} else if (movingRight) {
+			velocity.x = 1f;
 		}
+
+		if (movingUp) {
+			velocity.y = 1f;
+		} else if (movingDown) {
+			velocity.y = -1f;
+		}
+		
+		if (select0) {
+			inv.select(0);
+		} else if (select1) {
+			inv.select(1);
+		} else if (select2) {
+			inv.select(2);
+		} else if (select3) {
+			inv.select(3);
+		} else if (select4) {
+			inv.select(4);
+		}
+
+		velocity.nor();
+		velocity.scl(PLAYER_SPEED);
 
 		b.setLinearVelocity(velocity);
 
 		Vector2 fireL = new Vector2();
 
-		if (Gdx.app.getType() == ApplicationType.Android) {
-			fireL.x = aimpad.getKnobPercentX();
-			fireL.y = aimpad.getKnobPercentY();
-		} else {
-
-			aim.x = Convert.pixelsToMeters(Gdx.input.getX()
-					- Gdx.graphics.getWidth() / 2f
-					+ world.getCamera().position.x);
-			aim.y = Convert.pixelsToMeters(-Gdx.input.getY()
-					+ Gdx.graphics.getHeight() / 2f
-					+ world.getCamera().position.y);
-			fireL = aim.cpy().sub(b.getPosition());
-
-		}
+		aim.x = Convert.pixelsToMeters(Gdx.input.getX()
+				- Gdx.graphics.getWidth() / 2f
+				+ world.getCamera().position.x);
+		aim.y = Convert.pixelsToMeters(-Gdx.input.getY()
+				+ Gdx.graphics.getHeight() / 2f
+				+ world.getCamera().position.y);
+		fireL = aim.cpy().sub(b.getPosition());
 
 		if (!velocity.equals(Vector2.Zero))
 			b.setRotation((float) Math.toRadians(velocity.angle()));
 		else
 			b.setRotation((float) Math.toRadians(fireL.angle()));
 
-		elapsedShot += deltaSeconds();
-
-		if (Gdx.app.getType() == ApplicationType.Android) {
-			if (!fireL.equals(Vector2.Zero)) {
-				// shoot
+		if (Gdx.input.isTouched()) {
+			b.setRotation((float) Math.toRadians(fireL.angle()));
+			if ( cd.isFinished() ) {
 				b.setRotation((float) Math.toRadians(fireL.angle()));
-				if (elapsedShot >= SHOT_DELAY) {
-					b.setRotation((float) Math.toRadians(fireL.angle()));
-					fireL.angle();
+				fireL.angle();
 
-					if (!fireL.equals(new Vector2())) {
-						fireL.nor();
-						fireL.scl(BULLET_SPEED);
-
-						world.createEntity("Bullet", "red", b.getPosition(),
-								fireL, e, BULLET_DAMAGE);
-						elapsedShot = 0f;
-						SoundManager.playSound("shot", 0.5f);
-					}
-				}
-			}
-		} else {
-
-			if (Gdx.input.isTouched()) {
-				b.setRotation((float) Math.toRadians(fireL.angle()));
-				if (elapsedShot >= SHOT_DELAY) {
-					b.setRotation((float) Math.toRadians(fireL.angle()));
-					fireL.angle();
-
-					if (!fireL.equals(new Vector2())) {
-						fireL.nor();
-						fireL.scl(BULLET_SPEED);
-
-						/*world.createEntity("Bullet", "red", b.getPosition(),
-								fireL, e, BULLET_DAMAGE);*/
-						elapsedShot = 0f;
-						SoundManager.playSound("shot", 0.5f);
-					}
+				if (!fireL.equals(new Vector2())) {
+					fireL.nor();
+					
+					inv.getSelected().use("primary", e, world, fireL );
+					cd.setMaxValue( inv.getSelected().getUseTime() );
+					cd.restart();
+					
+					SoundManager.playSound("shot", 0.5f);
 				}
 			}
 		}
-
+			
 	}
 
 	@Override
@@ -218,6 +165,31 @@ public class PlayerControlSystem extends InputSystem {
 			movingDown = true;
 			return true;
 		}
+		
+		if (keycode == Keys.NUM_0) {
+			select0 = true;
+			return true;
+		}
+		
+		if (keycode == Keys.NUM_1) {
+			select1 = true;
+			return true;
+		}
+		
+		if (keycode == Keys.NUM_2) {
+			select2 = true;
+			return true;
+		}
+		
+		if (keycode == Keys.NUM_3) {
+			select3 = true;
+			return true;
+		}
+		
+		if (keycode == Keys.NUM_4) {
+			select4 = true;
+			return true;
+		}
 
 		return false;
 	}
@@ -241,6 +213,31 @@ public class PlayerControlSystem extends InputSystem {
 
 		if (keycode == Keys.S) {
 			movingDown = false;
+			return true;
+		}
+		
+		if (keycode == Keys.NUM_0) {
+			select0 = false;
+			return true;
+		}
+		
+		if (keycode == Keys.NUM_1) {
+			select1 = false;
+			return true;
+		}
+		
+		if (keycode == Keys.NUM_2) {
+			select2 = false;
+			return true;
+		}
+		
+		if (keycode == Keys.NUM_3) {
+			select3 = false;
+			return true;
+		}
+		
+		if (keycode == Keys.NUM_4) {
+			select4 = false;
 			return true;
 		}
 
