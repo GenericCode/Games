@@ -119,7 +119,7 @@ public class BulletTemplate implements EntityTemplate {
 				}
 			});
 		
-		e.addComponent(new Sprite(bulletTex, bulletRect[0]));
+		e.addComponent(new Sprite(bulletTex, region));
 		
 		return e;
 	}

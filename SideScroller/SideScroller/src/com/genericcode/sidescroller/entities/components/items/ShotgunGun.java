@@ -9,9 +9,9 @@ import com.lostcode.javalib.entities.processes.ExpirationProcess;
 
 public class ShotgunGun extends Gun {
 
-	private float shotCount;
+	private int shotCount;
 	
-	public ShotgunGun( float damage, float fireDelay, float range, float bulletVelocity, GenericStat ammo, float reloadTime, float shotCount) {
+	public ShotgunGun( float damage, float fireDelay, float range, float bulletVelocity, GenericStat ammo, float reloadTime, int shotCount) {
 		super("shotgun", damage, fireDelay, range, bulletVelocity, ammo, reloadTime);
 		this.shotCount = shotCount;
 	}
@@ -24,7 +24,7 @@ public class ShotgunGun extends Gun {
 		{
 			for( int i = 0; i<shotCount; i++) {
 				world.getProcessManager().attach( new ExpirationProcess( (float)( this.range/this.bulletVelocity),
-						world.createEntity("Bullet", "red", position, fireAngle.cpy().rotate(4*i-2*shotCount).div(fireAngle.len()).scl(this.bulletVelocity), firer, this.damage )));
+						world.createEntity("Bullet", "yellow", position, fireAngle.cpy().rotate((float) (3*i-1.5*shotCount)).div(fireAngle.len()).scl(this.bulletVelocity), firer, this.damage )));
 			}
 			this.ammo.drain(1);
 			return true;
@@ -46,6 +46,9 @@ public class ShotgunGun extends Gun {
 	public boolean use( String use, Object... args ) {
 		if( use == "primary") {
 			return this.shoot((Entity)args[0], (EntityWorld)args[1], (Vector2)args[2]);
+		}
+		if( use == "reload") {
+			return this.reload();
 		}
 		return false;
 	}

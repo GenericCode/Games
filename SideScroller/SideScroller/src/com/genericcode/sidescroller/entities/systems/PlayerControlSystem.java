@@ -1,15 +1,11 @@
 package com.genericcode.sidescroller.entities.systems;
 
-import com.badlogic.gdx.Application.ApplicationType;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.InputMultiplexer;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.ui.Skin;
-import com.badlogic.gdx.scenes.scene2d.ui.Touchpad;
-import com.badlogic.gdx.scenes.scene2d.ui.Touchpad.TouchpadStyle;
+import com.genericcode.sidescroller.entities.components.items.Gun;
 import com.lostcode.javalib.entities.Entity;
 import com.lostcode.javalib.entities.components.generic.Cooldown;
 import com.lostcode.javalib.entities.components.generic.Inventory;
@@ -28,6 +24,8 @@ public class PlayerControlSystem extends InputSystem {
 	private boolean movingUp = false;
 	private boolean movingDown = false;
 	
+	private boolean reload = false;
+	
 	private boolean select0 = false;
 	private boolean select1 = false;
 	private boolean select2 = false;
@@ -37,8 +35,6 @@ public class PlayerControlSystem extends InputSystem {
 	private Vector2 aim;
 
 	private Stage stage;
-	private Touchpad movepad;
-	private Touchpad aimpad;
 
 	public PlayerControlSystem(InputMultiplexer input) {
 		super(input);
@@ -72,6 +68,13 @@ public class PlayerControlSystem extends InputSystem {
 			velocity.y = 1f;
 		} else if (movingDown) {
 			velocity.y = -1f;
+		}
+		
+		if (reload) {
+			if( inv.getSelected().use("reload") && cd.getCurrentValue() < ( (Gun) inv.getSelected()).getReloadTime() ) {
+				cd.setMaxValue( ( (Gun) inv.getSelected() ).getReloadTime() );
+				cd.restart();
+			}
 		}
 		
 		if (select0) {
@@ -115,9 +118,10 @@ public class PlayerControlSystem extends InputSystem {
 				if (!fireL.equals(new Vector2())) {
 					fireL.nor();
 					
-					inv.getSelected().use("primary", e, world, fireL );
-					cd.setMaxValue( inv.getSelected().getUseTime() );
-					cd.restart();
+					if( inv.getSelected().use("primary", e, world, fireL ) ) {
+						cd.setMaxValue( inv.getSelected().getUseTime() );
+						cd.restart();
+					}
 					
 					SoundManager.playSound("shot", 0.5f);
 				}
@@ -190,6 +194,11 @@ public class PlayerControlSystem extends InputSystem {
 			select4 = true;
 			return true;
 		}
+		
+		if (keycode == Keys.R) {
+			reload = true;
+			return true;
+		}
 
 		return false;
 	}
@@ -238,6 +247,11 @@ public class PlayerControlSystem extends InputSystem {
 		
 		if (keycode == Keys.NUM_4) {
 			select4 = false;
+			return true;
+		}
+		
+		if (keycode == Keys.R) {
+			reload = false;
 			return true;
 		}
 

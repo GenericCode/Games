@@ -92,7 +92,7 @@ public class Gun extends Item {
 	}
 	
 	/**
-	 * Sets the delay between the Gun's to a new value.
+	 * Sets the delay between the Gun's shots to a new value.
 	 * 
 	 * @param delay
 	 *            The new fire delay of the gun.     
@@ -141,5 +141,54 @@ public class Gun extends Item {
 	 */
 	public void setReloadTime(float time) {
 		this.reloadTime = time;
+	}
+	
+	/**
+	 * Returns the Gun's damage value.     
+	 */
+	public float getDamage() {
+		return this.damage;
+	}
+	
+	/**
+	 * Returns the fire delay of the gun.
+	 */
+	public float getFireDelay(float delay) {
+		return this.fireDelay;
+	}
+	
+	/**
+	 * Returns the Gun's range.    
+	 */
+	public float getRange() {
+		return this.range;
+	}
+	
+	/**
+	 * Returns the velocity of the Gun's bullets.     
+	 */
+	public float getBulletVelocity() {
+		return this.bulletVelocity;
+	}
+	
+	/**
+	 * Returns the Gun's maximum ammo.     
+	 */
+	public float getMaxAmmo() {
+		return (float) this.ammo.getMaxValue();
+	}
+	
+	/**
+	 * Returns the Gun's current ammo.     
+	 */
+	public float getCurrentAmmo() {
+		return (float) this.ammo.getCurrentValue();
+	}
+	
+	/**
+	 * gets the time the Gun takes to reload to a new value.     
+	 */
+	public float getReloadTime() {
+		return this.reloadTime;
 	}
 }

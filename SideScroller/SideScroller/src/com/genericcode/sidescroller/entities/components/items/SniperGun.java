@@ -20,9 +20,8 @@ public class SniperGun extends Gun {
 		if(this.ammo.getCurrentValue() > 0)
 		{
 			world.getProcessManager().attach( new ExpirationProcess( (float)( this.range/this.bulletVelocity),
-					world.createEntity("Bullet", "red", position, fireAngle.div(fireAngle.len()).scl(this.bulletVelocity), firer, this.damage )));
+					world.createEntity("Bullet", "red", position, fireAngle.div(fireAngle.len()).scl(this.bulletVelocity).add(b.getLinearVelocity()), firer, this.damage )));
 			this.ammo.drain(1);
-			System.out.println("weeeeeeeeeeeeeeeeeeeeeeeeee");
 			return true;
 		}
 		return false;
@@ -42,6 +41,9 @@ public class SniperGun extends Gun {
 	public boolean use( String use, Object... args ) {
 		if( use == "primary") {
 			return this.shoot((Entity)args[0], (EntityWorld)args[1], (Vector2)args[2]);
+		}
+		if( use == "reload") {
+			return this.reload();
 		}
 		return false;
 	}
