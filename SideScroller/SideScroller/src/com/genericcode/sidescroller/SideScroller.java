@@ -20,7 +20,7 @@ public class SideScroller extends Game {
 		
 		super.create();
 		
-		this.getScreenManager().addScreen(new SplashScreen(this, Gdx.files.internal("data/Textures/splash.png"), new MainMenuScreen(this), 1.25f, 4f, 1.25f));
+		this.getScreenManager().addScreen(new SplashScreen(this, Gdx.files.internal("data/Textures/gams.png"), new MainMenuScreen(this), 1.25f, 4f, 1.25f));
 	}
 	
 	@Override

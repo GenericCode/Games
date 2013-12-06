@@ -74,6 +74,10 @@ public class Gun extends Item {
 		return false;
 	}
 	
+	public boolean secondary( Entity firer, EntityWorld world, Vector2 fireAngle ) {
+		return false;
+	}
+	
 	/**
 	 * Called when the gun is reloaded. Returns whether reloading was successful.        
 	 */

@@ -20,8 +20,7 @@ public class ShotgunGun extends Gun {
 	public boolean shoot( Entity firer, EntityWorld world, Vector2 fireAngle ) {
 		Body b = (Body) firer.getComponent(Body.class);
 		Vector2 position = b.getPosition();
-		if(this.ammo.getCurrentValue() > 0)
-		{
+		if(this.ammo.getCurrentValue() > 0) {
 			for( int i = 0; i<shotCount; i++) {
 				world.getProcessManager().attach( new ExpirationProcess( (float)( this.range/this.bulletVelocity),
 						world.createEntity("Bullet", "yellow", position, fireAngle.cpy().rotate((float) (3*i-1.5*shotCount)).div(fireAngle.len()).scl(this.bulletVelocity), firer, this.damage )));
@@ -34,8 +33,7 @@ public class ShotgunGun extends Gun {
 	
 	@Override
 	public boolean reload() {
-		if(this.ammo.getCurrentValue() < this.ammo.getMaxValue())
-		{
+		if(this.ammo.getCurrentValue() < this.ammo.getMaxValue()) {
 			this.ammo.fillMax();
 			return true;
 		}

@@ -18,7 +18,11 @@ import com.lostcode.javalib.utils.SoundManager;
 public class PlayerControlSystem extends InputSystem {
 
 	private static final float PLAYER_SPEED = Convert.pixelsToMeters(140f);
-
+	
+	private boolean rightClick = false;
+	private boolean leftClick = false;
+	private boolean middleClick = false;
+	
 	private boolean movingLeft = false;
 	private boolean movingRight = false;
 	private boolean movingUp = false;
@@ -109,7 +113,7 @@ public class PlayerControlSystem extends InputSystem {
 		else
 			b.setRotation((float) Math.toRadians(fireL.angle()));
 
-		if (Gdx.input.isTouched()) {
+		if ( Gdx.input.isTouched() ) {
 			b.setRotation((float) Math.toRadians(fireL.angle()));
 			if ( cd.isFinished() ) {
 				b.setRotation((float) Math.toRadians(fireL.angle()));
@@ -117,16 +121,21 @@ public class PlayerControlSystem extends InputSystem {
 
 				if (!fireL.equals(new Vector2())) {
 					fireL.nor();
-					
-					if( inv.getSelected().use("primary", e, world, fireL ) ) {
-						cd.setMaxValue( inv.getSelected().getUseTime() );
-						cd.restart();
-					}
-					
-					SoundManager.playSound("shot", 0.5f);
+					if(leftClick)
+						if( inv.getSelected().use("primary", e, world, fireL ) ) {
+							cd.setMaxValue( inv.getSelected().getUseTime() );
+							cd.restart();
+							SoundManager.playSound("shot", 0.5f);
+						}
+					if(rightClick)
+						if( inv.getSelected().use("secondary", e, world, fireL ) ) {
+							cd.setMaxValue( inv.getSelected().getUseTime() );
+							cd.restart();
+							SoundManager.playSound("shot", 0.5f);
+						}
 				}
 			}
-		}
+		}//Secondary use should be made more dissimilar/given proper variables in G
 			
 	}
 
@@ -255,6 +264,50 @@ public class PlayerControlSystem extends InputSystem {
 			return true;
 		}
 
+		return false;
+	}
+	
+	@Override
+	public boolean touchDown (int screenX, int screenY, int pointer, int button) {
+		if( button == 0 ) {
+			leftClick = true;
+			return true;
+		}
+		
+		if( button == 1 ) {
+			rightClick = true;
+			return true;
+		}
+		
+		if( button == 2 ) {
+			middleClick = true;
+			return true;
+		}
+			
+		return false;
+	}
+	
+	@Override
+	public boolean touchUp (int screenX, int screenY, int pointer, int button) {
+		if( button == 0 ) {
+			leftClick = false;
+			return true;
+		}
+		
+		if( button == 1 ) {
+			rightClick = false;
+			return true;
+		}
+		
+		if( button == 2 ) {
+			middleClick = false;
+			return true;
+		}
+		
+		return false;
+	}
+	
+	public boolean touchDragged (int screenX, int screenY, int pointer) {
 		return false;
 	}
 }
