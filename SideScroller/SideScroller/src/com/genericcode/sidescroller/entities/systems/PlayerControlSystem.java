@@ -269,40 +269,28 @@ public class PlayerControlSystem extends InputSystem {
 	
 	@Override
 	public boolean touchDown (int screenX, int screenY, int pointer, int button) {
-		if( button == 0 ) {
+		if( button == 0 )
 			leftClick = true;
-			return true;
-		}
 		
-		if( button == 1 ) {
+		if( button == 1 )
 			rightClick = true;
-			return true;
-		}
 		
-		if( button == 2 ) {
+		if( button == 2 )
 			middleClick = true;
-			return true;
-		}
 			
 		return false;
 	}
 	
 	@Override
 	public boolean touchUp (int screenX, int screenY, int pointer, int button) {
-		if( button == 0 ) {
+		if( button == 0 )
 			leftClick = false;
-			return true;
-		}
 		
-		if( button == 1 ) {
+		if( button == 1 )
 			rightClick = false;
-			return true;
-		}
 		
-		if( button == 2 ) {
+		if( button == 2 )
 			middleClick = false;
-			return true;
-		}
 		
 		return false;
 	}

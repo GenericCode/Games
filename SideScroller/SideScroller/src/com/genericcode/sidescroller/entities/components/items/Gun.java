@@ -4,12 +4,11 @@ import com.badlogic.gdx.math.Vector2;
 import com.genericcode.sidescroller.entities.components.GenericStat;
 import com.lostcode.javalib.entities.Entity;
 import com.lostcode.javalib.entities.EntityWorld;
-import com.lostcode.javalib.entities.components.abstracted.Stat;
 import com.lostcode.javalib.entities.components.generic.Item;
 import com.lostcode.javalib.entities.components.render.Sprite;
 
 /**
- * Base class for Gun-type components.
+ * Base class for Gun-type items.
  * @author GenericCode
  * @Created November 13, 2013
  */
@@ -21,7 +20,7 @@ public class Gun extends Item {
 	protected float range;
 	protected float bulletVelocity;
 	
-	protected Stat ammo;
+	protected GenericStat ammo;
 	protected float reloadTime;
 	
 	protected boolean ultra = false;

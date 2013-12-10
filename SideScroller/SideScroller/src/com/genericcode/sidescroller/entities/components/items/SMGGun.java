@@ -2,6 +2,7 @@ package com.genericcode.sidescroller.entities.components.items;
 
 import com.badlogic.gdx.math.Vector2;
 import com.genericcode.sidescroller.entities.components.GenericStat;
+import com.genericcode.sidescroller.entities.processes.abilities.BulletstormProcess;
 import com.lostcode.javalib.entities.Entity;
 import com.lostcode.javalib.entities.EntityWorld;
 import com.lostcode.javalib.entities.components.physical.Body;
@@ -19,7 +20,7 @@ public class SMGGun extends Gun {
 		Vector2 position = b.getPosition();
 		if(this.ammo.getCurrentValue() > 0) {
 			world.getProcessManager().attach( new ExpirationProcess( (float)( this.range/this.bulletVelocity),
-					world.createEntity("Bullet", "red", position, fireAngle.div(fireAngle.len()).scl(this.bulletVelocity).add(b.getLinearVelocity()), firer, this.damage )));
+					world.createEntity("Bullet", "red", position, fireAngle.div(fireAngle.len()).scl(this.bulletVelocity).rotate( (float) (20*Math.random()-10) ).add(b.getLinearVelocity()), firer, this.damage )));
 			this.ammo.drain(1);
 			return true;
 		}
@@ -31,9 +32,10 @@ public class SMGGun extends Gun {
 		Body b = (Body) firer.getComponent(Body.class);
 		Vector2 position = b.getPosition();
 		if(this.ammo.getCurrentValue() > 0) {
-			world.getProcessManager().attach( new ExpirationProcess( (float)( this.range/this.bulletVelocity),
+			/*world.getProcessManager().attach( new ExpirationProcess( (float)( this.range/this.bulletVelocity),
 					world.createEntity("Bullet", "red", position, fireAngle.div(fireAngle.len()).scl(this.bulletVelocity).add(b.getLinearVelocity()), firer, this.damage )));
-			this.ammo.drain(1);
+			this.ammo.drain(1);*/
+			world.getProcessManager().attach( new BulletstormProcess( 10, firer, this, fireAngle));
 			return true;
 		}
 		return false;
