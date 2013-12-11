@@ -75,8 +75,8 @@ public class PlayerControlSystem extends InputSystem {
 		}
 		
 		if (reload) {
-			if( inv.getSelected().use("reload") && cd.getCurrentValue() < ( (Gun) inv.getSelected()).getReloadTime() ) {
-				cd.setMaxValue( ( (Gun) inv.getSelected() ).getReloadTime() );
+			if( inv.getSelected().use("reload") && cd.getCurrentValue() < ( (Gun) inv.getSelected()).reloadTime ) {
+				cd.setMaxValue( ( (Gun) inv.getSelected() ).reloadTime );
 				cd.restart();
 			}
 		}

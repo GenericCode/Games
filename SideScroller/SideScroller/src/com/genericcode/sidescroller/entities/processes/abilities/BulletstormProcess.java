@@ -4,10 +4,12 @@ import com.badlogic.gdx.math.Vector2;
 import com.genericcode.sidescroller.entities.components.items.SMGGun;
 import com.lostcode.javalib.entities.Entity;
 import com.lostcode.javalib.entities.EntityWorld;
+import com.lostcode.javalib.entities.components.generic.Cooldown;
 import com.lostcode.javalib.entities.components.physical.Body;
 import com.lostcode.javalib.entities.processes.ExpirationProcess;
 import com.lostcode.javalib.entities.processes.Process;
 import com.lostcode.javalib.entities.processes.ProcessState;
+import com.lostcode.javalib.utils.SoundManager;
 
 /**
  * Ability process for secondary fire of the SMG
@@ -27,8 +29,8 @@ public class BulletstormProcess extends Process {
 	 * 
 	 * @param duration The duration of the ability in seconds.
 	 * @param owner The owner of the ability.
-	 * @param gun The gun using this ability.
-	 * @param fireAngle The vector the ability will aim upon.
+	 * @param gun The SMG gun using this ability.
+	 * @param fireAngle The vector the ability will aim along.
 	 */
 	public BulletstormProcess( float duration, Entity owner, SMGGun gun, Vector2 fireAngle ) {
 		this.duration = duration;
@@ -39,12 +41,20 @@ public class BulletstormProcess extends Process {
 	@Override
 	public void update(EntityWorld world, float deltaTime) {
 		Body b = (Body) owner.getComponent(Body.class);
+		Cooldown c = (Cooldown) owner.getComponent(Cooldown.class);
+		
+		gun.ammo.drain(1);
 		duration -= deltaTime;
-		if( duration <= 0)
-			end(ProcessState.SUCCEEDED);
-		world.getProcessManager().attach( new ExpirationProcess( (float)( gun.getRange()/gun.getBulletVelocity() ),
-				world.createEntity("Bullet", "red", b.getPosition(), fireAngle.div(fireAngle.len()).scl(gun.getBulletVelocity() ).rotate( (float) (20*Math.random()-10) ).add(b.getLinearVelocity()), owner, gun.getDamage() )));
-
+		
+		if( gun.ammo.getCurrentValue() <= 0 || duration <= 0 )
+			end(ProcessState.SUCCEEDED);	
+		
+		c.fillMax();
+		
+		world.getProcessManager().attach( new ExpirationProcess( (float)( gun.range/gun.bulletVelocity ),
+				world.createEntity("Bullet", "red", b.getPosition(), fireAngle.cpy().div(fireAngle.len()).scl(gun.bulletVelocity ).rotate( (float) (40*Math.random()-20) ).add(b.getLinearVelocity()), owner, gun.damage )));
+		
+		SoundManager.playSound("shot", 0.5f);
 	}
 
 	@Override

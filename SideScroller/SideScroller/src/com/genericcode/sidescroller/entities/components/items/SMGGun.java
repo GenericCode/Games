@@ -29,12 +29,7 @@ public class SMGGun extends Gun {
 	
 	@Override
 	public boolean secondary( Entity firer, EntityWorld world, Vector2 fireAngle ) {
-		Body b = (Body) firer.getComponent(Body.class);
-		Vector2 position = b.getPosition();
 		if(this.ammo.getCurrentValue() > 0) {
-			/*world.getProcessManager().attach( new ExpirationProcess( (float)( this.range/this.bulletVelocity),
-					world.createEntity("Bullet", "red", position, fireAngle.div(fireAngle.len()).scl(this.bulletVelocity).add(b.getLinearVelocity()), firer, this.damage )));
-			this.ammo.drain(1);*/
 			world.getProcessManager().attach( new BulletstormProcess( 10, firer, this, fireAngle));
 			return true;
 		}
