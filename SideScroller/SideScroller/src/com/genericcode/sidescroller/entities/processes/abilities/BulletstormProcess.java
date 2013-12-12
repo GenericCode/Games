@@ -52,7 +52,7 @@ public class BulletstormProcess extends Process {
 		c.fillMax();
 		
 		world.getProcessManager().attach( new ExpirationProcess( (float)( gun.range/gun.bulletVelocity ),
-				world.createEntity("Bullet", "red", b.getPosition(), fireAngle.cpy().div(fireAngle.len()).scl(gun.bulletVelocity ).rotate( (float) (40*Math.random()-20) ).add(b.getLinearVelocity()), owner, gun.damage )));
+				world.createEntity("Bullet", "red", b.getPosition(), fireAngle.cpy().div(fireAngle.len()).scl(gun.bulletVelocity ).rotate( (float) (4*gun.inaccuracy*Math.random()-2*gun.inaccuracy) ).add(b.getLinearVelocity()), owner, gun.damage )));
 		
 		SoundManager.playSound("shot", 0.5f);
 	}

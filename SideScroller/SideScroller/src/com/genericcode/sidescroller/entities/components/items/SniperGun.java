@@ -9,6 +9,23 @@ import com.lostcode.javalib.entities.processes.ExpirationProcess;
 
 public class SniperGun extends Gun {
 
+	/**
+	 * Constructs a Sniper Rifle Item
+	 * 
+	 * @param damage
+	 *            A float representing the damage of projectiles fired by the gun.
+	 * @param fireDelay
+	 *            A float representing the delay between shots fired by the gun.
+	 * @param range
+	 *            A float representing the range of projectiles fired by the gun.
+	 * @param bulletVelocity
+	 *            A float representing the initial velocity of projectiles fired by the gun.           
+	 * @param ammo
+	 *            A {@link GenericStat} representing the current and maximum values of ammo for the gun.
+	 * @param reloadTime
+	 *            A float representing the delay between reloads of the gun.
+	 */
+	
 	public SniperGun( float damage, float fireDelay, float range, float bulletVelocity, GenericStat ammo, float reloadTime) {
 		super("sniper", damage, fireDelay, range, bulletVelocity, ammo, reloadTime);
 	}
