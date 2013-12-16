@@ -11,6 +11,7 @@ import com.lostcode.javalib.Game;
 import com.lostcode.javalib.states.screens.MenuScreen;
 import com.lostcode.javalib.utils.SoundManager;
 
+@SuppressWarnings("deprecation")
 public class SettingsScreen extends MenuScreen {
 
 	private CheckBox sounds;

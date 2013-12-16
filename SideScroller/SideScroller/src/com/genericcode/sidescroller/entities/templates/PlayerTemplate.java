@@ -17,7 +17,6 @@ import com.lostcode.javalib.entities.components.generic.Cooldown;
 import com.lostcode.javalib.entities.components.generic.Inventory;
 import com.lostcode.javalib.entities.components.generic.Item;
 import com.lostcode.javalib.entities.components.physical.Body;
-import com.lostcode.javalib.entities.components.render.Sprite;
 import com.lostcode.javalib.entities.templates.EntityTemplate;
 import com.lostcode.javalib.utils.Convert;
 
@@ -43,7 +42,7 @@ public class PlayerTemplate implements EntityTemplate {
 		e.init(name, "Player", "Player");
 		
 		Vector2 pos = new Vector2(0,0);
-		Sprite s = new Sprite();
+		//Sprite s = new Sprite();
 		
 		BodyDef bd = new BodyDef();
 		bd.type = BodyType.DynamicBody;

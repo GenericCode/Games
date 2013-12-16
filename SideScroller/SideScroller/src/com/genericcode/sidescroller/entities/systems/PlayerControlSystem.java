@@ -15,6 +15,7 @@ import com.lostcode.javalib.utils.Convert;
 import com.lostcode.javalib.utils.Display;
 import com.lostcode.javalib.utils.SoundManager;
 
+@SuppressWarnings("unused")
 public class PlayerControlSystem extends InputSystem {
 
 	private static final float PLAYER_SPEED = Convert.pixelsToMeters(140f);

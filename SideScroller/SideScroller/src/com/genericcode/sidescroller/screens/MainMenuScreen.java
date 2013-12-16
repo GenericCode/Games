@@ -15,6 +15,8 @@ import com.lostcode.javalib.utils.SoundManager;
  * @author Nathaniel
  * @created Jul 24, 2013
  */
+
+@SuppressWarnings("deprecation")
 public class MainMenuScreen extends MenuScreen {
 	
 	/**

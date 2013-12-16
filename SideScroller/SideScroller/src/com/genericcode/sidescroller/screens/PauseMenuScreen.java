@@ -10,6 +10,7 @@ import com.lostcode.javalib.Game;
 import com.lostcode.javalib.states.screens.MenuScreen;
 import com.lostcode.javalib.utils.SoundManager;
 
+@SuppressWarnings("deprecation")
 public class PauseMenuScreen extends MenuScreen {
 	
 	public PauseMenuScreen(Game game) {
