@@ -12,7 +12,6 @@ import com.genericcode.sidescroller.entities.systems.PlayerControlSystem;
 import com.genericcode.sidescroller.entities.templates.PlayerTemplate;
 import com.genericcode.sidescroller.entities.templates.projectiles.BulletTemplate;
 
-@SuppressWarnings("deprecation")
 public class ScrollWorld extends EntityWorld {
 	
 	public ScrollWorld(InputMultiplexer input, Camera camera) {
@@ -45,9 +44,9 @@ public class ScrollWorld extends EntityWorld {
 		super.buildSystems();
 		
 		//Input
-		systems.addSystem(new PlayerControlSystem(input));
+		systems.addSystem(new PlayerControlSystem(input, "Generic"));
 		//Render
-		systems.addSystem(new TrackingCameraSystem("Player", camera, getBounds()));
+		systems.addSystem(new TrackingCameraSystem("Generic", camera));
 
 	}
 

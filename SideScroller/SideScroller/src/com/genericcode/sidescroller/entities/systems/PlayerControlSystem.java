@@ -39,19 +39,23 @@ public class PlayerControlSystem extends InputSystem {
 
 	private Vector2 aim;
 
+	private String name;
+	
 	private Stage stage;
 
-	public PlayerControlSystem(InputMultiplexer input) {
+	public PlayerControlSystem(InputMultiplexer input, String name) {
 		super(input);
 		aim = new Vector2();
 
+		this.name = name;
+		
 		stage = new Stage(Display.getPreferredWidth(),
 				Display.getPreferredHeight(), false);
 	}
 
 	@Override
 	public boolean canProcess(Entity e) {
-		return e.getType().equals("Player");
+		return e.getTag().equals(name);
 	}
 
 	@Override
