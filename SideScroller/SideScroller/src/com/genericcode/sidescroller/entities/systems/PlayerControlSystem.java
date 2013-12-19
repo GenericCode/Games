@@ -10,6 +10,7 @@ import com.lostcode.javalib.entities.Entity;
 import com.lostcode.javalib.entities.components.generic.Cooldown;
 import com.lostcode.javalib.entities.components.generic.Inventory;
 import com.lostcode.javalib.entities.components.physical.Body;
+import com.lostcode.javalib.entities.components.render.Sprite;
 import com.lostcode.javalib.entities.systems.InputSystem;
 import com.lostcode.javalib.utils.Convert;
 import com.lostcode.javalib.utils.Display;
@@ -62,6 +63,7 @@ public class PlayerControlSystem extends InputSystem {
 	protected void process(Entity e) {
 		super.process(e);
 		Body b = (Body) e.getComponent(Body.class);
+		Sprite s = (Sprite) e.getComponent(Sprite.class);
 		Inventory inv = (Inventory) e.getComponent(Inventory.class);
 		Cooldown cd = (Cooldown) e.getComponent(Cooldown.class);
 		cd.drain(deltaSeconds());
@@ -113,15 +115,19 @@ public class PlayerControlSystem extends InputSystem {
 				+ world.getCamera().position.y);
 		fireL = aim.cpy().sub(b.getPosition());
 
-		if (!velocity.equals(Vector2.Zero))
+		/*if (!velocity.equals(Vector2.Zero))
 			b.setRotation((float) Math.toRadians(velocity.angle()));
 		else
-			b.setRotation((float) Math.toRadians(fireL.angle()));
+			b.setRotation((float) Math.toRadians(fireL.angle()));*/
+		b.setRotation(0);
+		if (aim.x - b.getPosition().x > 0)
+			s.setScale(1, 1);
+		else
+			s.setScale(-1, 1);
 
 		if ( Gdx.input.isTouched() ) {
-			b.setRotation((float) Math.toRadians(fireL.angle()));
+			//b.setRotation((float) Math.toRadians(fireL.angle()));
 			if ( cd.isFinished() ) {
-				b.setRotation((float) Math.toRadians(fireL.angle()));
 				fireL.angle();
 
 				if (!fireL.equals(new Vector2())) {

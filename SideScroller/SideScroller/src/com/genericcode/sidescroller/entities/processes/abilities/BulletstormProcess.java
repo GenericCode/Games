@@ -59,8 +59,9 @@ public class BulletstormProcess extends Process {
 
 	@Override
 	public void onEnd(EntityWorld world, ProcessState endState) {
-		// TODO Auto-generated method stub
-
+		Cooldown c = (Cooldown) owner.getComponent(Cooldown.class);
+		c.setMaxValue(4);
+		c.fillMax();
 	}
 
 }

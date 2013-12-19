@@ -7,7 +7,9 @@ import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.lostcode.javalib.entities.EntityWorld;
 import com.lostcode.javalib.entities.systems.generic.TrackingCameraSystem;
+import com.lostcode.javalib.entities.systems.render.HealthRenderSystem;
 import com.lostcode.javalib.utils.Convert;
+import com.genericcode.sidescroller.entities.systems.CooldownRenderSystem;
 import com.genericcode.sidescroller.entities.systems.PlayerControlSystem;
 import com.genericcode.sidescroller.entities.templates.PlayerTemplate;
 import com.genericcode.sidescroller.entities.templates.projectiles.BulletTemplate;
@@ -15,7 +17,7 @@ import com.genericcode.sidescroller.entities.templates.projectiles.BulletTemplat
 public class ScrollWorld extends EntityWorld {
 	
 	public ScrollWorld(InputMultiplexer input, Camera camera) {
-		super(input, camera, new Vector2(0, -9.8f));
+		super(input, camera, new Vector2(0, 0));//-9.8f));
 		
 		debugView.enabled = true;
 		debugView.visible = true;//TODO DELETE
@@ -47,6 +49,12 @@ public class ScrollWorld extends EntityWorld {
 		systems.addSystem(new PlayerControlSystem(input, "Generic"));
 		//Render
 		systems.addSystem(new TrackingCameraSystem("Generic", camera));
+		systems.addSystem(new CooldownRenderSystem(camera, 
+				Gdx.files.internal("data/Textures/cooldownbarback.png"),
+				Gdx.files.internal("data/Textures/cooldownbarfront.png")));
+		systems.addSystem(new HealthRenderSystem(camera, 
+				Gdx.files.internal("data/Textures/healthbarback.png"),
+				Gdx.files.internal("data/Textures/healthbarfront.png")));
 
 	}
 

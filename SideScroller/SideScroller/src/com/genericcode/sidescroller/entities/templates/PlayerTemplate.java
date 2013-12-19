@@ -28,12 +28,18 @@ public class PlayerTemplate implements EntityTemplate {
 	
 	private static final float BODY_RADIUS = 10f;
 	
-	private Texture playerTexture;
-	private TextureRegion region;
+	//private Texture playerTexture;
+	//private TextureRegion region;
+	
+	private Texture shipsTexture;
+	private TextureRegion leftRegion;
 	
 	public PlayerTemplate() {
-		playerTexture = new Texture(Gdx.files.internal("data/Textures/MAN.png"));
-		region = new TextureRegion(playerTexture, 0, 0, 5, 13);
+		//playerTexture = new Texture(Gdx.files.internal("data/Textures/MAN.png"));
+		//region = new TextureRegion(playerTexture, 0, 0, 15, 48);
+		shipsTexture = new Texture(Gdx.files.internal("data/Textures/playerships.png"));
+		
+		leftRegion = new TextureRegion(shipsTexture, 0, 0, 16, 16);
 	}
 
 	@Override
@@ -52,7 +58,8 @@ public class PlayerTemplate implements EntityTemplate {
 		Vector2 pos = new Vector2(0,0);
 		Sprite s = new Sprite();
 		
-		s = new Sprite(playerTexture, region);
+		//s = new Sprite(playerTexture, region);
+		s = new Sprite(shipsTexture, leftRegion);
 		
 		e.addComponent(s);
 		
@@ -72,10 +79,12 @@ public class PlayerTemplate implements EntityTemplate {
 		e.addComponent(b);
 		
 		GenericHealth h = new GenericHealth(e, world, 1);
+		h.render = true;
 		
 		e.addComponent(h);
 		
 		Cooldown cd = new Cooldown(world,0);
+		cd.render = true;
 		
 		e.addComponent(cd);
 		
