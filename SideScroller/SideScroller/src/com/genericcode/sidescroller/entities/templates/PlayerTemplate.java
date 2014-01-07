@@ -92,9 +92,9 @@ public class PlayerTemplate implements EntityTemplate {
 		Array<Item> contents = new Array<Item>();
 		// Gun g = new Gun(float damage, float fireDelay, float range, float bulletVelocity, GenericStat ammo, float reloadTime, ...);
 		SniperGun sg = new SniperGun(10f, 1f, Convert.metersToPixels(500), Convert.metersToPixels(600), new GenericStat(5f), 5f);
-		ShotgunGun sgg = new ShotgunGun(3f, .75f, Convert.metersToPixels(100), Convert.metersToPixels(400), new GenericStat(10f), 2f, 10);
+		ShotgunGun sgg = new ShotgunGun(1f, .75f, Convert.metersToPixels(100), Convert.metersToPixels(400), new GenericStat(10f), 2f, 10);
 		SMGGun smg = new SMGGun(2f, .25f, Convert.metersToPixels(250), Convert.metersToPixels(400), new GenericStat(30f), 2f, 10);
-		DualPistolsGun dpg = new DualPistolsGun( 10f, 1f, Convert.metersToPixels(500), Convert.metersToPixels(600), new GenericStat(5f), 5f);
+		DualPistolsGun dpg = new DualPistolsGun( 3f, .75f, Convert.metersToPixels(300), Convert.metersToPixels(400), new GenericStat(10f), 2f);
 		contents.add(sg);
 		contents.add(sgg);
 		contents.add(smg);
