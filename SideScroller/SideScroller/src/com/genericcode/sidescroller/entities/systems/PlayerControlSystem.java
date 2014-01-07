@@ -152,10 +152,19 @@ public class PlayerControlSystem extends InputSystem {
 
 	@Override
 	public void pause() {
+		rightClick = false;
+		leftClick = false;
+		middleClick = false;
 		movingLeft = false;
 		movingRight = false;
 		movingUp = false;
 		movingDown = false;
+		reload = false;
+		select0 = false;
+		select1 = false;
+		select2 = false;
+		select3 = false;
+		select4 = false;
 
 		super.pause();
 

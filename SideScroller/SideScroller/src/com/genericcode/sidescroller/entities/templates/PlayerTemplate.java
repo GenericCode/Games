@@ -11,6 +11,7 @@ import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
 import com.badlogic.gdx.utils.Array;
 import com.genericcode.sidescroller.entities.components.GenericHealth;
 import com.genericcode.sidescroller.entities.components.GenericStat;
+import com.genericcode.sidescroller.entities.components.items.DualPistolsGun;
 import com.genericcode.sidescroller.entities.components.items.SMGGun;
 import com.genericcode.sidescroller.entities.components.items.ShotgunGun;
 import com.genericcode.sidescroller.entities.components.items.SniperGun;
@@ -93,9 +94,11 @@ public class PlayerTemplate implements EntityTemplate {
 		SniperGun sg = new SniperGun(10f, 1f, Convert.metersToPixels(500), Convert.metersToPixels(600), new GenericStat(5f), 5f);
 		ShotgunGun sgg = new ShotgunGun(3f, .75f, Convert.metersToPixels(100), Convert.metersToPixels(400), new GenericStat(10f), 2f, 10);
 		SMGGun smg = new SMGGun(2f, .25f, Convert.metersToPixels(250), Convert.metersToPixels(400), new GenericStat(30f), 2f, 10);
+		DualPistolsGun dpg = new DualPistolsGun( 10f, 1f, Convert.metersToPixels(500), Convert.metersToPixels(600), new GenericStat(5f), 5f);
 		contents.add(sg);
 		contents.add(sgg);
 		contents.add(smg);
+		contents.add(dpg);
 		Inventory inv = new Inventory(e, world, 6, contents);
 		inv.select(sg);//FIX ALL THIS
 		
