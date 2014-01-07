@@ -69,6 +69,8 @@ public class SMGGun extends Gun {
 	
 	@Override
 	public boolean use( String use, Object... args ) {
+		if( busy )
+			return false;
 		if( use == "primary") {
 			return this.shoot((Entity)args[0], (EntityWorld)args[1], (Vector2)args[2]);
 		}

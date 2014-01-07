@@ -24,6 +24,7 @@ public class Gun extends Item {
 	public float reloadTime;
 	
 	public boolean ultra = false;
+	public boolean busy = false;//Whether the Gun is busy or not.
 	
 	public Sprite sprite;
 	

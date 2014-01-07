@@ -40,6 +40,7 @@ public class BulletstormProcess extends Process {
 	}
 	@Override
 	public void update(EntityWorld world, float deltaTime) {
+		gun.busy = true;
 		Body b = (Body) owner.getComponent(Body.class);
 		Cooldown c = (Cooldown) owner.getComponent(Cooldown.class);
 		
@@ -59,6 +60,7 @@ public class BulletstormProcess extends Process {
 
 	@Override
 	public void onEnd(EntityWorld world, ProcessState endState) {
+		gun.busy = false;
 		Cooldown c = (Cooldown) owner.getComponent(Cooldown.class);
 		c.setMaxValue(4);
 		c.fillMax();
