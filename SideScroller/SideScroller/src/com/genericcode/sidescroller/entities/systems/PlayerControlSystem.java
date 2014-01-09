@@ -25,6 +25,8 @@ public class PlayerControlSystem extends InputSystem {
 	private boolean leftClick = false;
 	private boolean middleClick = false;
 	
+	private String use = "";
+	
 	private boolean movingLeft = false;
 	private boolean movingRight = false;
 	private boolean movingUp = false;
@@ -37,6 +39,8 @@ public class PlayerControlSystem extends InputSystem {
 	private boolean select2 = false;
 	private boolean select3 = false;
 	private boolean select4 = false;
+	private boolean select5 = false;
+	private boolean select6 = false;
 
 	private Vector2 aim;
 
@@ -98,7 +102,16 @@ public class PlayerControlSystem extends InputSystem {
 			inv.select(3);
 		} else if (select4) {
 			inv.select(4);
+		} else if (select5) {
+			inv.select(5);
+		} else if (select6) {
+			inv.select(6);
 		}
+		
+		if(rightClick)
+			use = "secondary";
+		if(leftClick)
+			use = "primary";
 
 		velocity.nor();
 		velocity.scl(PLAYER_SPEED);
@@ -132,18 +145,11 @@ public class PlayerControlSystem extends InputSystem {
 
 				if (!fireL.equals(new Vector2())) {
 					fireL.nor();
-					if(leftClick)
-						if( inv.getSelected().use("primary", e, world, fireL ) ) {
-							cd.setMaxValue( inv.getSelected().getUseTime() );
-							cd.restart();
-							SoundManager.playSound("shot", 0.5f);
-						}
-					if(rightClick)
-						if( inv.getSelected().use("secondary", e, world, fireL ) ) {
-							cd.setMaxValue( inv.getSelected().getUseTime() );
-							cd.restart();
-							SoundManager.playSound("shot", 0.5f);
-						}
+					if( inv.getSelected().use(use, e, world, aim.cpy() ) ) {
+						cd.setMaxValue( inv.getSelected().getUseTime() );
+						cd.restart();
+						SoundManager.playSound("shot", 0.5f);
+					}
 				}
 			}
 		}//Secondary use should be made more dissimilar/given proper variables in G
@@ -165,6 +171,8 @@ public class PlayerControlSystem extends InputSystem {
 		select2 = false;
 		select3 = false;
 		select4 = false;
+		select5 = false;
+		select6 = false;
 
 		super.pause();
 
@@ -224,6 +232,16 @@ public class PlayerControlSystem extends InputSystem {
 			return true;
 		}
 		
+		if (keycode == Keys.NUM_5) {
+			select5 = true;
+			return true;
+		}
+		
+		if (keycode == Keys.NUM_6) {
+			select6 = true;
+			return true;
+		}
+		
 		if (keycode == Keys.R) {
 			reload = true;
 			return true;
@@ -276,6 +294,16 @@ public class PlayerControlSystem extends InputSystem {
 		
 		if (keycode == Keys.NUM_4) {
 			select4 = false;
+			return true;
+		}
+		
+		if (keycode == Keys.NUM_5) {
+			select5 = false;
+			return true;
+		}
+		
+		if (keycode == Keys.NUM_6) {
+			select6 = false;
 			return true;
 		}
 		

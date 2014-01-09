@@ -11,6 +11,7 @@ import com.lostcode.javalib.entities.systems.render.HealthRenderSystem;
 import com.lostcode.javalib.utils.Convert;
 import com.genericcode.sidescroller.entities.systems.CooldownRenderSystem;
 import com.genericcode.sidescroller.entities.systems.PlayerControlSystem;
+import com.genericcode.sidescroller.entities.templates.ExplosionTemplate;
 import com.genericcode.sidescroller.entities.templates.PlayerTemplate;
 import com.genericcode.sidescroller.entities.templates.projectiles.BulletTemplate;
 
@@ -64,6 +65,7 @@ public class ScrollWorld extends EntityWorld {
 		
 		addTemplate("Player", new PlayerTemplate());
 		addTemplate("Bullet", new BulletTemplate());
+		addTemplate("Explosion", new ExplosionTemplate());
 		
 
 	}

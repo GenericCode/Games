@@ -12,6 +12,7 @@ import com.badlogic.gdx.utils.Array;
 import com.genericcode.sidescroller.entities.components.GenericHealth;
 import com.genericcode.sidescroller.entities.components.GenericStat;
 import com.genericcode.sidescroller.entities.components.items.DualPistolsGun;
+import com.genericcode.sidescroller.entities.components.items.FragGrenadeItem;
 import com.genericcode.sidescroller.entities.components.items.SMGGun;
 import com.genericcode.sidescroller.entities.components.items.ShotgunGun;
 import com.genericcode.sidescroller.entities.components.items.SniperGun;
@@ -95,12 +96,16 @@ public class PlayerTemplate implements EntityTemplate {
 		ShotgunGun sgg = new ShotgunGun(1f, .75f, Convert.metersToPixels(100), Convert.metersToPixels(400), new GenericStat(10f), 2f, 10);
 		SMGGun smg = new SMGGun(2f, .25f, Convert.metersToPixels(250), Convert.metersToPixels(400), new GenericStat(30f), 2f, 10);
 		DualPistolsGun dpg = new DualPistolsGun( 3f, .75f, Convert.metersToPixels(300), Convert.metersToPixels(400), new GenericStat(10f), 2f);
+		
+		FragGrenadeItem fg = new FragGrenadeItem(50f, 0, 50f, new GenericStat(3f));
+		
 		contents.add(sg);
 		contents.add(sgg);
 		contents.add(smg);
 		contents.add(dpg);
+		contents.add(fg);
 		Inventory inv = new Inventory(e, world, 6, contents);
-		inv.select(sg);//FIX ALL THIS
+		inv.select(fg);//FIX ALL THIS
 		
 		e.addComponent(inv);
 		
