@@ -12,6 +12,7 @@ import com.lostcode.javalib.utils.Convert;
 import com.genericcode.sidescroller.entities.systems.CooldownRenderSystem;
 import com.genericcode.sidescroller.entities.systems.PlayerControlSystem;
 import com.genericcode.sidescroller.entities.templates.ExplosionTemplate;
+import com.genericcode.sidescroller.entities.templates.MookTemplate;
 import com.genericcode.sidescroller.entities.templates.PlayerTemplate;
 import com.genericcode.sidescroller.entities.templates.projectiles.BulletTemplate;
 
@@ -66,6 +67,7 @@ public class ScrollWorld extends EntityWorld {
 		addTemplate("Player", new PlayerTemplate());
 		addTemplate("Bullet", new BulletTemplate());
 		addTemplate("Explosion", new ExplosionTemplate());
+		addTemplate("Mook", new MookTemplate());
 		
 
 	}
@@ -75,6 +77,7 @@ public class ScrollWorld extends EntityWorld {
 		super.buildEntities();
 		
 		createEntity("Player", "Generic");
+		createEntity("Mook", "leftTeam", new Vector2(50,0));
 	}
 
 	@Override

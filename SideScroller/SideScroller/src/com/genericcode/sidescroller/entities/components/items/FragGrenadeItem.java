@@ -2,6 +2,7 @@ package com.genericcode.sidescroller.entities.components.items;
 
 import com.badlogic.gdx.math.Vector2;
 import com.genericcode.sidescroller.entities.components.GenericStat;
+import com.genericcode.sidescroller.entities.processes.miscellaneous.BusyProcess;
 import com.lostcode.javalib.entities.Entity;
 import com.lostcode.javalib.entities.EntityWorld;
 import com.lostcode.javalib.entities.components.physical.Body;
@@ -31,17 +32,23 @@ public class FragGrenadeItem extends ConsumableItem {
 	
 	@Override
 	public boolean use( String use, Object... args ) {
-		if( use == "primary") {
+		if( busy )
+			return false;
+		if( use == "primary")
 			return this.toss((Entity)args[0], (EntityWorld)args[1], (Vector2)args[2]);
-		}
 		return false;
 	}
 	
 	public boolean toss( Entity firer, EntityWorld world, Vector2 target ) {
-		Body b = (Body) firer.getComponent(Body.class);
-		Vector2 position = b.getPosition();
-		world.getProcessManager().attach(new DelayProcess(travelTime, new SpawnProcess("Explosion", target, damage, radius)));
-		return true;
+		if( !this.ammo.isEmpty() ) {
+			Body b = (Body)firer.getComponent(Body.class);
+			Vector2 position = b.getPosition();
+			busy = true;
+			world.getProcessManager().attach(new DelayProcess(travelTime, new SpawnProcess("Explosion", target.add(position), damage, radius), new BusyProcess(this,false) ) );
+			this.ammo.drain(1);
+			return true;
+		}
+		return false;
 	}
 
 }

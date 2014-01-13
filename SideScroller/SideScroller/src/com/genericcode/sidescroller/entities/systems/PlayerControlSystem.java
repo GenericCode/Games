@@ -144,8 +144,8 @@ public class PlayerControlSystem extends InputSystem {
 				fireL.angle();
 
 				if (!fireL.equals(new Vector2())) {
-					fireL.nor();
-					if( inv.getSelected().use(use, e, world, aim.cpy() ) ) {
+					//fireL.nor();
+					if( inv.getSelected().use(use, e, world, fireL.cpy() ) ) {
 						cd.setMaxValue( inv.getSelected().getUseTime() );
 						cd.restart();
 						SoundManager.playSound("shot", 0.5f);
