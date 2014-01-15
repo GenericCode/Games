@@ -20,7 +20,7 @@ public class GenericHealth extends Health {
 				
 				SoundManager.playSound("explosion");
 				
-				world.createEntity("Explosion", ((Transform) owner.getComponent(Transform.class)).getPosition());
+				world.createEntity("Explosion", ((Transform) owner.getComponent(Transform.class)).getPosition(), 0f, 0f);
 			}
 			
 		});

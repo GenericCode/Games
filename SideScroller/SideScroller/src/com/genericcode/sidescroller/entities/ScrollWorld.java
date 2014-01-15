@@ -77,7 +77,11 @@ public class ScrollWorld extends EntityWorld {
 		super.buildEntities();
 		
 		createEntity("Player", "Generic");
-		createEntity("Mook", "leftTeam", new Vector2(50,0));
+		createEntity("Mook", "leftTeam", new Vector2(50,5));
+		createEntity("Mook", "leftTeam", new Vector2(50,4));
+		createEntity("Mook", "leftTeam", new Vector2(50,3));
+		createEntity("Mook", "leftTeam", new Vector2(50,2));
+		createEntity("Mook", "leftTeam", new Vector2(50,1));
 	}
 
 	@Override
