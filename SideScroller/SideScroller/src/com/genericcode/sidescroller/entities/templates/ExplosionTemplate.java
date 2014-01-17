@@ -17,7 +17,6 @@ import com.lostcode.javalib.entities.components.physical.Body;
 import com.lostcode.javalib.entities.components.physical.Particle;
 import com.lostcode.javalib.entities.components.render.ParticleEffect;
 import com.lostcode.javalib.entities.templates.EntityTemplate;
-import com.lostcode.javalib.utils.Convert;
 
 public class ExplosionTemplate implements EntityTemplate {
 	
@@ -25,23 +24,27 @@ public class ExplosionTemplate implements EntityTemplate {
 	public Entity buildEntity(Entity e, EntityWorld world, Object... args) {
 		//args
 		Vector2 position = (Vector2)args[0];
-		final float DAMAGE = (Float)args[1];
+		final float DAMAGE = (Float) args[1];
+		final float RADIUS = (Float) args[2];
+		System.out.println(RADIUS);
 		
 		BodyDef bodyDef = new BodyDef();
-		bodyDef.type = BodyType.DynamicBody;
+		bodyDef.type = BodyType.StaticBody;
 		bodyDef.position.set(position);
-		Body b = new Body(world, e, null);
 		
 		CircleShape circle = new CircleShape();
-		circle.setRadius(Convert.pixelsToMeters((Float)args[2]));
+		circle.setRadius(0f);
 		
 		FixtureDef fixtureDef = new FixtureDef();
 		fixtureDef.shape = circle;
 		
+		Body b = new Body(world, e, bodyDef, fixtureDef);
+		
 		e.addComponent(b);
 		
 		//Sensor for DamagingExplosionProcess
-		e.addComponent( new View( e, Convert.pixelsToMeters((Float)args[2]), 1f ) );
+		View sensor = new View( e, (Float)RADIUS, 1f, 20 );
+		e.addComponent( sensor );
 		
 		//location of the explosion.
 		e.addComponent(new Particle(e, position, 0f, new Vector2(0,0)));
