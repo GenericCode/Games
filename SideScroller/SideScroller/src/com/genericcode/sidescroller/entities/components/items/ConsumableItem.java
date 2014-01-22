@@ -39,6 +39,7 @@ public class ConsumableItem extends Item {
 		
 		this.damage = damage;
 		this.useTime = useTime;
+		this.radius = radius;
 		this.ammo = ammo;
 	}
 

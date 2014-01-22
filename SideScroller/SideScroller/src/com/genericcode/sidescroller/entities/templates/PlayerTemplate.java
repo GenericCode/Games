@@ -97,7 +97,7 @@ public class PlayerTemplate implements EntityTemplate {
 		SMGGun smg = new SMGGun(2f, .25f, Convert.metersToPixels(250), Convert.metersToPixels(400), new GenericStat(30f), 2f, 10);
 		DualPistolsGun dpg = new DualPistolsGun( 3f, .75f, Convert.metersToPixels(300), Convert.metersToPixels(400), new GenericStat(10f), 2f);
 		
-		FragGrenadeItem fg = new FragGrenadeItem(50f, 0, 10f, new GenericStat(3f));
+		FragGrenadeItem fg = new FragGrenadeItem(50f, 0f, 20f, new GenericStat(3f));
 		
 		contents.add(sg);
 		contents.add(sgg);

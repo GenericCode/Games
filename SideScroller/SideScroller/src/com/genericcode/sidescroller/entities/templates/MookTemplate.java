@@ -53,11 +53,11 @@ public class MookTemplate implements EntityTemplate {
 		
 		if (group.equals("leftTeam")) {
 			s = new Sprite(shipsTexture, leftRegion);
-			bodyDef.linearVelocity.set(SPEED, 0);
+			//bodyDef.linearVelocity.set(SPEED, 0);
 		} else if (group.equals("rightTeam")) {
 			s = new Sprite(shipsTexture, rightRegion);
 			bodyDef.angle = (float)Math.PI;
-			bodyDef.linearVelocity.set(-SPEED, 0);
+			//bodyDef.linearVelocity.set(-SPEED, 0);
 		}
 		
 		CircleShape circle = new CircleShape();
