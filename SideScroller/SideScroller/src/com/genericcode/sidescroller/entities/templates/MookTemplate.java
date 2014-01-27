@@ -22,7 +22,7 @@ import com.lostcode.javalib.utils.Convert;
 public class MookTemplate implements EntityTemplate {
 
 	private final static float BODY_RADIUS = 4f;
-	private static final float SPEED = Convert.pixelsToMeters(50f);
+	//private static final float SPEED = Convert.pixelsToMeters(50f);
 	
 	private Texture shipsTexture;
 	private TextureRegion leftRegion;

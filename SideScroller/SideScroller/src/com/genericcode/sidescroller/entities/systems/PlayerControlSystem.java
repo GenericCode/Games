@@ -78,12 +78,13 @@ public class PlayerControlSystem extends InputSystem {
 		} else if (movingRight) {
 			velocity.x = 1f;
 		}
-
-		if (movingUp) {
-			velocity.y = 1f;
-		} else if (movingDown) {
-			velocity.y = -1f;
-		}
+		
+		velocity.y = -1f;
+		//if (movingUp) {
+		//	velocity.y = 1f;
+		//} else if (movingDown) {
+		//	velocity.y = -1f;
+		//}
 		
 		if (reload) {
 			if( inv.getSelected().use("reload") && cd.getCurrentValue() < ( (Gun) inv.getSelected()).reloadTime ) {

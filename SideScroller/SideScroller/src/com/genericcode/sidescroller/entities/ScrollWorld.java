@@ -19,7 +19,7 @@ import com.genericcode.sidescroller.entities.templates.projectiles.BulletTemplat
 public class ScrollWorld extends EntityWorld {
 	
 	public ScrollWorld(InputMultiplexer input, Camera camera) {
-		super(input, camera, new Vector2(0, 0));//-9.8f));
+		super(input, camera, new Vector2(0,-9.8f));
 		
 		debugView.enabled = true;
 		debugView.visible = true;//TODO DELETE
@@ -76,6 +76,7 @@ public class ScrollWorld extends EntityWorld {
 	protected void buildEntities() {
 		super.buildEntities();
 		
+		createEntity("TileMap", "data/untitled.tmx", null);
 		createEntity("Player", "Generic");
 		createEntity("Mook", "leftTeam", new Vector2(50,5));
 		createEntity("Mook", "leftTeam", new Vector2(50,4));
