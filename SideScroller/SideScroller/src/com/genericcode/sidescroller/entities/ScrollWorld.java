@@ -19,7 +19,7 @@ import com.genericcode.sidescroller.entities.templates.projectiles.BulletTemplat
 public class ScrollWorld extends EntityWorld {
 	
 	public ScrollWorld(InputMultiplexer input, Camera camera) {
-		super(input, camera, new Vector2(0,-9.8f));
+		super(input, camera, new Vector2(0,0));
 		
 		debugView.enabled = true;
 		debugView.visible = true;//TODO DELETE

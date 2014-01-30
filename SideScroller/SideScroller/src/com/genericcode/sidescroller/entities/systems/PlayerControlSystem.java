@@ -10,6 +10,7 @@ import com.lostcode.javalib.entities.Entity;
 import com.lostcode.javalib.entities.components.generic.Cooldown;
 import com.lostcode.javalib.entities.components.generic.Inventory;
 import com.lostcode.javalib.entities.components.physical.Body;
+import com.lostcode.javalib.entities.components.render.Renderable;
 import com.lostcode.javalib.entities.components.render.Sprite;
 import com.lostcode.javalib.entities.systems.InputSystem;
 import com.lostcode.javalib.utils.Convert;
@@ -68,6 +69,7 @@ public class PlayerControlSystem extends InputSystem {
 		super.process(e);
 		Body b = (Body) e.getComponent(Body.class);
 		Sprite s = (Sprite) e.getComponent(Sprite.class);
+		Renderable r = (Renderable) e.getComponent(Renderable.class);
 		Inventory inv = (Inventory) e.getComponent(Inventory.class);
 		Cooldown cd = (Cooldown) e.getComponent(Cooldown.class);
 		cd.drain(deltaSeconds());
@@ -79,12 +81,17 @@ public class PlayerControlSystem extends InputSystem {
 			velocity.x = 1f;
 		}
 		
-		velocity.y = -1f;
-		//if (movingUp) {
-		//	velocity.y = 1f;
-		//} else if (movingDown) {
-		//	velocity.y = -1f;
-		//}
+		if (movingUp) {
+			velocity.y = 1f;
+		} else if (movingDown) {
+			velocity.y = -1f;
+		}
+		r.setLayer((int) -b.getPosition().y);
+		
+		velocity.nor();
+		velocity.scl(PLAYER_SPEED);
+		
+		velocity.y /= 2;
 		
 		if (reload) {
 			if( inv.getSelected().use("reload") && cd.getCurrentValue() < ( (Gun) inv.getSelected()).reloadTime ) {
@@ -113,9 +120,6 @@ public class PlayerControlSystem extends InputSystem {
 			use = "secondary";
 		if(leftClick)
 			use = "primary";
-
-		velocity.nor();
-		velocity.scl(PLAYER_SPEED);
 
 		b.setLinearVelocity(velocity);
 

@@ -42,7 +42,7 @@ public class ShotgunGun extends Gun {
 		if(this.ammo.getCurrentValue() > 0) {
 			for( int i = 0; i<shotCount; i++) {
 				world.getProcessManager().attach( new ExpirationProcess( (float)( this.range/this.bulletVelocity),
-						world.createEntity("Bullet", "yellow", position, fireAngle.cpy().rotate((float) (3*i-1.5*shotCount)).div(fireAngle.len()).scl(this.bulletVelocity), firer, this.damage )));
+						world.createEntity("Bullet", "yellow", position, fireAngle.cpy().rotate((float) (2*i-1*shotCount)).div(fireAngle.len()).scl(this.bulletVelocity), firer, this.damage )));
 			}
 			this.ammo.drain(1);
 			return true;

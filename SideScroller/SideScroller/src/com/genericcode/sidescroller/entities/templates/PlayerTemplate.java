@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.CircleShape;
+import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
 import com.badlogic.gdx.utils.Array;
@@ -28,20 +29,20 @@ import com.lostcode.javalib.utils.Convert;
 
 public class PlayerTemplate implements EntityTemplate {
 	
-	private static final float BODY_RADIUS = 10f;
+	//private static final float BODY_RADIUS = 10f;
 	
-	//private Texture playerTexture;
-	//private TextureRegion region;
+	private Texture playerTexture;
+	private TextureRegion region;
 	
-	private Texture shipsTexture;
-	private TextureRegion leftRegion;
+	//private Texture shipsTexture;
+	//private TextureRegion leftRegion;
 	
 	public PlayerTemplate() {
-		//playerTexture = new Texture(Gdx.files.internal("data/Textures/MAN.png"));
-		//region = new TextureRegion(playerTexture, 0, 0, 15, 48);
-		shipsTexture = new Texture(Gdx.files.internal("data/Textures/playerships.png"));
+		playerTexture = new Texture(Gdx.files.internal("data/Textures/MAN.png"));
+		region = new TextureRegion(playerTexture, 0, 0, 15, 48);
+		//shipsTexture = new Texture(Gdx.files.internal("data/Textures/playerships.png"));
 		
-		leftRegion = new TextureRegion(shipsTexture, 0, 0, 16, 16);
+		//leftRegion = new TextureRegion(shipsTexture, 0, 0, 16, 16);
 	}
 
 	@Override
@@ -53,15 +54,14 @@ public class PlayerTemplate implements EntityTemplate {
 	@Override
 	public Entity buildEntity(Entity e, EntityWorld world, Object... args) {
 		String name = (String)args[0];
-		//int[][] stats = (int[][])args[1];
 		
 		e.init(name, "Player", "Player");
 		
 		Vector2 pos = new Vector2(0,0);
 		Sprite s = new Sprite();
 		
-		//s = new Sprite(playerTexture, region);
-		s = new Sprite(shipsTexture, leftRegion);
+		s = new Sprite(playerTexture, region);
+		//s = new Sprite(shipsTexture, leftRegion);
 		
 		e.addComponent(s);
 		
@@ -69,10 +69,13 @@ public class PlayerTemplate implements EntityTemplate {
 		bd.type = BodyType.DynamicBody;
 		
 		CircleShape circle = new CircleShape();
-		circle.setRadius(Convert.metersToPixels(BODY_RADIUS));
+		circle.setRadius(Convert.metersToPixels(.01f));//BODY_RADIUS));
+		PolygonShape box = new PolygonShape();
+		box.setAsBox(10f, 5f);
+		
 		
 		FixtureDef fd = new FixtureDef();
-		fd.shape = circle;
+		fd.shape = box;//circle;
 		
 		bd.position.set(pos);
 		
