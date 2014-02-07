@@ -71,7 +71,7 @@ public class PlayerTemplate implements EntityTemplate {
 		CircleShape circle = new CircleShape();
 		circle.setRadius(Convert.metersToPixels(.01f));//BODY_RADIUS));
 		PolygonShape box = new PolygonShape();
-		box.setAsBox(10f, 5f);
+		box.setAsBox(8f, 5f);
 		
 		
 		FixtureDef fd = new FixtureDef();

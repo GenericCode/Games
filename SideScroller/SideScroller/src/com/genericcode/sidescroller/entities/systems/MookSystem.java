@@ -23,7 +23,6 @@ public class MookSystem extends TagSystem {
 	protected void process(Entity e) {
 		Renderable r = (Renderable) e.getComponent(Renderable.class);
 		Body b = (Body) e.getComponent(Body.class);
-		r.setLayer((int)-b.getPosition().y);
-		
+		r.setLayer((int) -(b.getPosition().y-world.getBounds().height) );
 	}
 }

@@ -20,7 +20,7 @@ import com.lostcode.javalib.utils.SoundManager;
 @SuppressWarnings("unused")
 public class PlayerControlSystem extends InputSystem {
 
-	private static final float PLAYER_SPEED = Convert.pixelsToMeters(140f);
+	private static final float PLAYER_SPEED = Convert.pixelsToMeters(200f);
 	
 	private boolean rightClick = false;
 	private boolean leftClick = false;
@@ -74,7 +74,8 @@ public class PlayerControlSystem extends InputSystem {
 		Cooldown cd = (Cooldown) e.getComponent(Cooldown.class);
 		cd.drain(deltaSeconds());
 		Vector2 velocity = new Vector2();
-
+		Vector2 origin = b.getPosition().add(new Vector2(0,5f));
+		
 		if (movingLeft) {
 			velocity.x = -1f;
 		} else if (movingRight) {
@@ -86,7 +87,6 @@ public class PlayerControlSystem extends InputSystem {
 		} else if (movingDown) {
 			velocity.y = -1f;
 		}
-		r.setLayer((int) -b.getPosition().y);
 		
 		velocity.nor();
 		velocity.scl(PLAYER_SPEED);
@@ -133,17 +133,18 @@ public class PlayerControlSystem extends InputSystem {
 				+ world.getCamera().position.y);
 		fireL = aim.cpy().sub(b.getPosition());
 
-		/*if (!velocity.equals(Vector2.Zero))
-			b.setRotation((float) Math.toRadians(velocity.angle()));
-		else
-			b.setRotation((float) Math.toRadians(fireL.angle()));*/
 		b.setRotation(0);
+		
+		//Sprite/Renderable handling
+		Vector2 draw = new Vector2( b.getPosition().x-s.getWidth()/2, b.getPosition().cpy().y-4f );
+		r.setOrigin(b.getPosition().sub(draw));
+		r.setLayer((int) -(b.getPosition().y-world.getBounds().height) );
 		if (aim.x - b.getPosition().x > 0)
 			s.setScale(1, 1);
 		else
 			s.setScale(-1, 1);
 
-		if ( Gdx.input.isTouched() ) {
+		if ( leftClick || rightClick ) {
 			//b.setRotation((float) Math.toRadians(fireL.angle()));
 			if ( cd.isFinished() ) {
 				fireL.angle();

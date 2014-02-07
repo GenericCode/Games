@@ -10,11 +10,13 @@ import com.lostcode.javalib.entities.systems.generic.TrackingCameraSystem;
 import com.lostcode.javalib.entities.systems.render.HealthRenderSystem;
 import com.lostcode.javalib.utils.Convert;
 import com.genericcode.sidescroller.entities.systems.CooldownRenderSystem;
+import com.genericcode.sidescroller.entities.systems.MookSystem;
 import com.genericcode.sidescroller.entities.systems.PlayerControlSystem;
 import com.genericcode.sidescroller.entities.templates.ExplosionTemplate;
 import com.genericcode.sidescroller.entities.templates.MookTemplate;
 import com.genericcode.sidescroller.entities.templates.PlayerTemplate;
 import com.genericcode.sidescroller.entities.templates.projectiles.BulletTemplate;
+import com.genericcode.sidescroller.entities.templates.structures.WallTemplate;
 
 public class ScrollWorld extends EntityWorld {
 	
@@ -49,6 +51,7 @@ public class ScrollWorld extends EntityWorld {
 		
 		//Input
 		systems.addSystem(new PlayerControlSystem(input, "Generic"));
+		systems.addSystem(new MookSystem("mook"));
 		//Render
 		systems.addSystem(new TrackingCameraSystem("Generic", camera));
 		systems.addSystem(new CooldownRenderSystem(camera, 
@@ -68,6 +71,7 @@ public class ScrollWorld extends EntityWorld {
 		addTemplate("Bullet", new BulletTemplate());
 		addTemplate("Explosion", new ExplosionTemplate());
 		addTemplate("Mook", new MookTemplate());
+		addTemplate("Wall", new WallTemplate());
 		
 
 	}
@@ -78,6 +82,8 @@ public class ScrollWorld extends EntityWorld {
 		
 		createEntity("TileMap", "data/untitled.tmx", null);
 		createEntity("Player", "Generic");
+		createEntity("Wall", "invisible", 2000f,10f, new Vector2(0,210f));
+		createEntity("Wall", "invisible", 2000f,10f, new Vector2(0,-240f));
 		createEntity("Mook", "leftTeam", new Vector2(50,5));
 		createEntity("Mook", "leftTeam", new Vector2(50,4));
 		createEntity("Mook", "leftTeam", new Vector2(50,3));
