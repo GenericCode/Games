@@ -72,7 +72,7 @@ public class MookTemplate implements EntityTemplate {
 		//e.addComponent(new Collidable(){});
 		
 		//Sensors
-		View sensor = new View(e,7f,.5f);
+		View sensor = new View(e,Convert.pixelsToMeters(50f),1f);
 		
 		//Cooldowns
 		Cooldown shoot = new Cooldown(world, 10f);

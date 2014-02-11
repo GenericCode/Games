@@ -55,7 +55,7 @@ public class PlayerTemplate implements EntityTemplate {
 	public Entity buildEntity(Entity e, EntityWorld world, Object... args) {
 		String name = (String)args[0];
 		
-		e.init(name, "Player", "Player");
+		e.init(name, "Player", "player");
 		
 		Vector2 pos = new Vector2(0,0);
 		Sprite s = new Sprite();
@@ -71,7 +71,7 @@ public class PlayerTemplate implements EntityTemplate {
 		CircleShape circle = new CircleShape();
 		circle.setRadius(Convert.metersToPixels(.01f));//BODY_RADIUS));
 		PolygonShape box = new PolygonShape();
-		box.setAsBox(8f, 5f);
+		box.setAsBox(Convert.pixelsToMeters(7.5f), Convert.pixelsToMeters(5f));
 		
 		
 		FixtureDef fd = new FixtureDef();

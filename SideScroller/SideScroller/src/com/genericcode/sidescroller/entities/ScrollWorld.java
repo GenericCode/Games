@@ -84,10 +84,10 @@ public class ScrollWorld extends EntityWorld {
 		createEntity("Player", "Generic");
 		createEntity("Wall", "invisible", 2000f,10f, new Vector2(0,210f));
 		createEntity("Wall", "invisible", 2000f,10f, new Vector2(0,-240f));
-		createEntity("Mook", "leftTeam", new Vector2(50,5));
+		/*createEntity("Mook", "leftTeam", new Vector2(50,5));
 		createEntity("Mook", "leftTeam", new Vector2(50,4));
 		createEntity("Mook", "leftTeam", new Vector2(50,3));
-		createEntity("Mook", "leftTeam", new Vector2(50,2));
+		createEntity("Mook", "leftTeam", new Vector2(50,2));*/
 		createEntity("Mook", "leftTeam", new Vector2(50,1));
 	}
 

@@ -136,7 +136,7 @@ public class PlayerControlSystem extends InputSystem {
 		b.setRotation(0);
 		
 		//Sprite/Renderable handling
-		Vector2 draw = new Vector2( b.getPosition().x-s.getWidth()/2, b.getPosition().cpy().y-4f );
+		Vector2 draw = new Vector2( b.getPosition().x-s.getWidth()/2, b.getPosition().cpy().y-Convert.pixelsToMeters(4f) );
 		r.setOrigin(b.getPosition().sub(draw));
 		r.setLayer((int) -(b.getPosition().y-world.getBounds().height) );
 		if (aim.x - b.getPosition().x > 0)
